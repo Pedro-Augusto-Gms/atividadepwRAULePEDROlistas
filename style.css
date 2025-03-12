@@ -1,0 +1,63 @@
+.lista {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.listaA,
+.listaB {
+    padding: 10px;
+    border: 1px solid #000;
+    width: 200px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listaA > button,
+.listaB > button{
+    margin-top: 10px;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+body {
+    text-align: center;
+}
+
+.item-lista {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.item-lista input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.botoes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.botoes button {
+    margin: 5px 0;
+}
+
+.apagar-botoes {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.apagar-botoes button {
+    margin: 0 10px;
+}

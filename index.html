@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Adicionar Valores nas Listas</title>
+</head>
+<body>
+    <h1>Adicionar valores às listas A ou B</h1>
+
+    <div>
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" placeholder="Digite um valor">
+    </div>
+    <div>
+        <label for="lista">Escolha a lista:</label>
+        <select id="lista">
+            <option value="A">Lista A</option>
+            <option value="B">Lista B</option>
+        </select>
+        <br>
+        <button onclick="adicionarValor()">Adicionar</button>
+
+        <div id="listas" class="lista">
+            <div class="listaA">
+                <h2>Lista A:</h2>
+                <div id="listaA"></div>
+                 <button onclick="apagarItens('listaA')">Apagar A</button>
+            </div>
+            <div class="botoes">
+                <button onclick="moverParaB()">Mover para B >></button>
+                <button onclick="moverParaA()"><< Mover para A</button>
+            </div>
+            <div class="listaB">
+                <h2>Lista B:</h2>
+                <div id="listaB"></div>
+                 <button onclick="apagarItens('listaB')">Apagar B</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function adicionarValor() {
+            const valor = document.getElementById('valor').value;
+            const listaEscolhida = document.getElementById('lista').value;
+
+            if (valor === "") {
+                alert("Por favor, insira um valor!");
+                return;
+            }
+
+            const itemLista = criarItemLista(valor);
+
+            if (listaEscolhida === "A") {
+                document.getElementById('listaA').appendChild(itemLista);
+            } else {
+                document.getElementById('listaB').appendChild(itemLista);
+            }
+
+            document.getElementById('valor').value = "";
+        }
+
+        function criarItemLista(valor) {
+            const itemLista = document.createElement("div");
+            itemLista.classList.add("item-lista");
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = "item-" + valor;
+
+            const label = document.createElement("label");
+            label.textContent = valor;
+            label.setAttribute("for", "item-" + valor);
+
+            itemLista.appendChild(checkbox);
+            itemLista.appendChild(label);
+
+            return itemLista;
+        }
+
+        function moverItens(origem, destino) {
+            const listaOrigem = document.getElementById(origem);
+            const listaDestino = document.getElementById(destino);
+
+            const itensSelecionados = listaOrigem.querySelectorAll('.item-lista input[type="checkbox"]:checked');
+
+            itensSelecionados.forEach(checkbox => {
+                const item = checkbox.parentNode;
+
+                listaOrigem.removeChild(item);
+
+                listaDestino.appendChild(item);
+                checkbox.checked = false;
+            });
+        }
+
+        function moverParaB() {
+            moverItens('listaA', 'listaB');
+        }
+
+        function moverParaA() {
+            moverItens('listaB', 'listaA');
+        }
+
+        function apagarItens(listaId) {
+            const lista = document.getElementById(listaId);
+            const itensSelecionados = lista.querySelectorAll('.item-lista input[type="checkbox"]:checked');
+
+            itensSelecionados.forEach(checkbox => {
+                const item = checkbox.parentNode;
+                lista.removeChild(item);
+            });
+        }
+    </script>
+</body>
+</html>
